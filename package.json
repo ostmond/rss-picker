@@ -1,0 +1,23 @@
+{
+  "name": "rss-picker",
+  "version": "1.0.0",
+  "description": "read rss from a web site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ostmond/rss-picker.git"
+  },
+  "keywords": [
+    "lambda",
+    "rss"
+  ],
+  "author": "Wei He",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ostmond/rss-picker/issues"
+  },
+  "homepage": "https://github.com/ostmond/rss-picker#readme"
+}
