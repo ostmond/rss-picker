@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/ostmond/rss-picker/issues"
   },
-  "homepage": "https://github.com/ostmond/rss-picker#readme"
+  "homepage": "https://github.com/ostmond/rss-picker#readme",
+  "dependencies": {
+    "xml-js": "^1.6.11"
+  }
 }
