@@ -21,6 +21,6 @@
   },
   "homepage": "https://github.com/ostmond/rss-picker#readme",
   "dependencies": {
-    "xml-js": "^1.6.11"
+    "xml2json": "^0.12.0"
   }
 }

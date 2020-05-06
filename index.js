@@ -1,7 +1,7 @@
 'use strict';
 
 const https = require('https');
-const convert = require('xml-js');
+const convert = require('xml2json');
 
 /**
  * Pass the data to send as `event.data`, and the request options as
@@ -23,7 +23,7 @@ exports.handler = (event, context, callback) => {
             if (res.headers['content-type'] === 'application/json') {
                 body = JSON.parse(body);
             } else if (res.headers['content-type'].includes('application/rss+xml')) {
-                body = convert.xml2json(body, {compact: true, spaces: 2});
+                body = convert.toJson(body);
             }
             callback(null, body);
         });
