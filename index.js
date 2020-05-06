@@ -22,7 +22,7 @@ exports.handler = (event, context, callback) => {
             // If we know it's JSON, parse it
             if (res.headers['content-type'] === 'application/json') {
                 body = JSON.parse(body);
-            } else if (res.headers['content-type'].includes === 'application/rss+xml') {
+            } else if (res.headers['content-type'].includes('application/rss+xml')) {
                 body = convert.xml2json(body, {compact: true, spaces: 2});
             }
             callback(null, body);
