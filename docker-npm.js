@@ -1,3 +1,5 @@
+//  This file is copied from https://gist.github.com/jokeyrhyme/d57097a491aa5ecaf27532d057d72461
+
 'use strict'
 
 // ideal for use with AWS Lambda and native Node.js modules
@@ -12,7 +14,7 @@ Usage:
 
 const childProcess = require('child_process')
 
-const nodejsImage = 'node:12'
+const nodejsImage = 'node:12' // originally was 4.3, I changed it accordingly
 const innerWorkingDir = '/src'
 const dockerArgs = [
   'run', '-i',
