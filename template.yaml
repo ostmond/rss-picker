@@ -11,10 +11,14 @@ Globals:
     Timeout: 10 
 
 Resources:
-  RssPickerFunctioin:
+  RssPickerFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       CodeUri: .
       Handler: index.handler
       Runtime: nodejs12.x
+      Environment:
+        Variables:
+          TOPIC_ARN:
+            
       
