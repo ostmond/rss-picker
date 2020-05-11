@@ -18,7 +18,7 @@ exports.handler = (event, context, callback) => {
     const req = https.request('https://www.ecdc.europa.eu/en/taxonomy/term/1295/feed', (res) => {
         let body = '';
         let bodyObj = {};
-        console.log('event:', event);
+        console.log('event.url:', event.url);
         console.log('Status:', res.statusCode);
         console.log('Headers:', JSON.stringify(res.headers));
         res.setEncoding('utf8');
