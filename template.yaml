@@ -17,8 +17,9 @@ Resources:
       CodeUri: .
       Handler: index.handler
       Runtime: nodejs12.x
+      # Placeholder for the env vars, see https://stackoverflow.com/questions/48104665/aws-sam-local-environment-variables
       Environment:
         Variables:
           TOPIC_ARN:
-            
+
       

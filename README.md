@@ -1,3 +1,21 @@
+## Create CloudWatch scheduled event
+1. Create a rule in CloudWatch
+```bash
+aws events rss-url \
+  --name my-scheduled-rule \
+  --schedule-expression 'rate(1 days)'
+```
+
+2. Create permission for the Lambda function
+```bash
+aws lambda add-permission \
+  --function-name rss-picker \
+  --statement-id rss-url-event \
+  --action 'lambda:InvokeFunction' \
+  --principal events.amazonaws.com \
+  --source-arn arn:aws:events:eu-central-1:410315750128:rule/rss-url
+```
+
 ## Create a SNS topic on AWS
 1. `aws sns create-topic --name lambda-rss-feed`
 
