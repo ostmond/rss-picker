@@ -1,9 +1,13 @@
+## What does this function do
+This function is triggered by a time-scheduled CloudWatch event, which sends an URL to that the function shoud send a HTTP GET request.
+After get the response this function will transform RSS+XML to JSON format and send the JSON to a SNS topic, in order to inform the subscribers to work on it.
+
 ## Create CloudWatch scheduled event
 1. Create a rule in CloudWatch
 ```bash
 aws events rss-url \
   --name my-scheduled-rule \
-  --schedule-expression 'rate(1 days)'
+  --schedule-expression 'rate(1 day)'
 ```
 
 2. Create permission for the Lambda function
@@ -16,6 +20,9 @@ aws lambda add-permission \
   --source-arn arn:aws:events:eu-central-1:410315750128:rule/rss-url
 ```
 
+### Source:
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLambdaSchedule.html
+
 ## Create a SNS topic on AWS
 1. `aws sns create-topic --name lambda-rss-feed`
 
@@ -26,7 +33,7 @@ aws lambda add-permission \
 1. rebuild the node module for Linux to make it run in the aws-lambda-docker
 `node docker-npm.js rebuild` 
 
-2. `sam local start-lambda`
+2. `sam local start-lambda --env-vars env.json`
 
 3. `aws lambda invoke --function-name "RssPickerFunctioin" --endpoint-url "http://127.0.0.1:3001" --no-verify-ssl out.txt`
 
@@ -34,3 +41,10 @@ aws lambda add-permission \
 1. https://github.com/serverless/serverless/issues/308 and https://gist.github.com/jokeyrhyme/d57097a491aa5ecaf27532d057d72461
 2. https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-local-start-lambda.html
 3. see 2.
+
+## Test locally via CLI
+1. `sam local invoke "RssPickerFunction" -e test/scheduled-event.json --env-vars env.json`
+You do not need to start the function before this test.
+
+### Source:
+https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-using-invoke.html

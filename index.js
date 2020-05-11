@@ -15,10 +15,10 @@ const TOPIC_ARN = process.env.TOPIC_ARN;
  * Will succeed with the response body.
  */
 exports.handler = (event, context, callback) => {
-    const req = https.request('https://www.ecdc.europa.eu/en/taxonomy/term/1295/feed', (res) => {
+    console.log('event.url:', event.url);
+    const req = https.request(event.url, (res) => {
         let body = '';
         let bodyObj = {};
-        console.log('event.url:', event.url);
         console.log('Status:', res.statusCode);
         console.log('Headers:', JSON.stringify(res.headers));
         res.setEncoding('utf8');
