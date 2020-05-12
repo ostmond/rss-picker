@@ -32,9 +32,13 @@ https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLambdaSchedule.htm
 ## Tests
 
 ### Automatic unit tests
+1. `npm rebuild` to make sure the npm modules are compile for your local env (i.e. MacOS instead of Linux)
+
+2. `npm test`
 
 #### Source 
 1. https://www.freecodecamp.org/news/the-best-ways-to-test-your-serverless-applications-40b88d6ee31e/
+2. https://blog.codecentric.de/en/2019/02/testable-lambda/
 
 ### Manual test locally against an endpoint
 
@@ -51,7 +55,10 @@ https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLambdaSchedule.htm
 3. see 2.
 
 ### Manual test locally via CLI
-1. `sam local invoke "RssPickerFunction" -e test/scheduled-event.json --env-vars env.json`
+1. rebuild the node module for Linux to make it run in the aws-lambda-docker
+`node docker-npm.js rebuild` 
+
+2. `sam local invoke "RssPickerFunction" -e test/scheduled-event.json --env-vars env.json`
 You do not need to start the function before this test.
 
 #### Source:

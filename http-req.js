@@ -23,8 +23,8 @@ module.exports = {
                 resolve(body);
             // The ECDC includes the charset in the content type, we cannot handle the string with ===    
             } else if (res.headers['content-type'] && res.headers['content-type'].includes('application/rss+xml')) {
-                bodyObj = JSON.parse(convert.toJson(body));
-                resolve(bodyObj.rss.channel);
+              bodyObj = JSON.parse(convert.toJson(body));
+              resolve(bodyObj.rss.channel);
             } else {
               reject('response content type ' + res.headers['content-type'] + 'cannot be processed');
             }
