@@ -1,11 +1,7 @@
 'use strict';
 
-const https = require('https');
-const convert = require('xml2json');
-var AWS = require('aws-sdk');
-AWS.config.region = 'eu-central-1';
-
-const TOPIC_ARN = process.env.TOPIC_ARN;
+const httpReq = require('./http-req');
+const snsPub = require('./sns-pub');
 
 /**
  * Pass the data to send as `event.data`, and the request options as
@@ -16,40 +12,15 @@ const TOPIC_ARN = process.env.TOPIC_ARN;
  */
 exports.handler = (event, context, callback) => {
     console.log('event.url:', event.url);
-    const req = https.request(event.url, (res) => {
-        let body = '';
-        let bodyObj = {};
-        console.log('Status:', res.statusCode);
-        console.log('Headers:', JSON.stringify(res.headers));
-        res.setEncoding('utf8');
-        res.on('data', (chunk) => body += chunk);
-        res.on('end', () => {
-            console.log('Successfully processed HTTPS response');
-            // If we know it's JSON, parse it
-            if (res.headers['content-type'] === 'application/json') {
-                body = JSON.parse(body);
-            // The ECDC includes the charset in the content type, we cannot handle the string with ===    
-            } else if (res.headers['content-type'] && res.headers['content-type'].includes('application/rss+xml')) {
-                bodyObj = JSON.parse(convert.toJson(body));
-                const channel = JSON.stringify(bodyObj.rss.channel);
-                const sns = new AWS.SNS();
-                sns.publish({
-                    Message: channel,
-                    TopicArn: TOPIC_ARN
-                }, function(err, data) {
-                    if (err) {
-                        console.log(err.stack)
-                        return;
-                    }
-                    console.log('push sent to ', TOPIC_ARN);
-                    console.log('MessageId: ', data.MessageId);
-                    context.done(null, 'Function Finished!'); 
-                });
-            }
-            callback(null, bodyObj.rss.channel);
-        });
-    });
-    req.on('error', callback);
+    httpReq.req(event.url).then(res => {
+        console.log('success:', res);
+        snsPub.publish(JSON.stringify(res));
+        // callback(null, res);
+    }).catch(error => {
+        console.log('error:', error);
+        // callback(error);
+    })
+    // req.on('error', callback);
     // req.get(JSON.stringify(event.data)); // TODO: to remove if it is not used.
-    req.end();
+    // req.end();
 };
