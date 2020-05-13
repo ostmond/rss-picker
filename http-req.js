@@ -6,9 +6,7 @@ const convert = require('xml2json');
 module.exports = {
   req: function(url) {
     return new Promise((resolve, reject) => {
-      console.log('url to request:', url);
       const req = https.request(url, (res) => {
-        console.log('url to request:', url);
         let body = '';
         let bodyObj = {};
         console.log('Status:', res.statusCode);

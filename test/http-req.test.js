@@ -3,7 +3,7 @@ const nock = require('nock')
 const assert = require('chai').assert;
 const httpsReq = require('../http-req')
 
-describe('httpsReq', () => {
+describe('http-req', () => {
   let server;
   before(function () { server = sinon.createFakeServer() });
   after(function () { server.restore(); });
