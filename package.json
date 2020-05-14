@@ -21,10 +21,10 @@
   },
   "homepage": "https://github.com/ostmond/rss-picker#readme",
   "dependencies": {
-    "aws-sdk": "^2.675.0",
     "xml2json": "^0.12.0"
   },
   "devDependencies": {
+    "aws-sdk": "^2.675.0",
     "aws-sdk-mock": "^5.1.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
