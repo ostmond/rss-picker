@@ -24,7 +24,7 @@ module.exports = {
               bodyObj = JSON.parse(convert.toJson(body));
               resolve(bodyObj.rss.channel);
             } else {
-              reject('response content type ' + res.headers['content-type'] + 'cannot be processed');
+              reject('response content type ' + res.headers['content-type'] + ' cannot be processed');
             }
         });
       });

@@ -1,7 +1,12 @@
 const sinon = require('sinon');
 const nock = require('nock')
+const chai = require('chai');
 const assert = require('chai').assert;
-const httpsReq = require('../http-req')
+const chaiAsPromised = require("chai-as-promised");
+const expect = require('chai').expect;
+const httpsReq = require('../http-req');
+
+chai.use(chaiAsPromised);
 
 describe('http-req', () => {
   let server;
@@ -51,5 +56,18 @@ describe('http-req', () => {
     res = await httpsReq.req('https://www.ecdc.europa.eu/en/taxonomy/term/1295/feed');
     // assertions
     assert.equal(res.title, 'ECDC - RSS - Risk assessment')
+  });
+
+  it('should reject for non-json and non-rss+xml type', async () => {
+    // mock data
+    const responseBody = '<rss><channel><title>ECDC - RSS - Risk assessment</title></channel></rss>';
+  
+    // mock https server
+    const scope = nock('https://www.ecdc.europa.eu')
+      .get('/en/taxonomy/term/1295/feed')
+      .reply(200, responseBody, {'content-type': 'application/text'});
+    // call the method to test 
+    assert.isRejected(httpsReq.req('https://www.ecdc.europa.eu/en/taxonomy/term/1295/feed'));
+    // assertions
   });
 })

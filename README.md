@@ -27,7 +27,7 @@ https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLambdaSchedule.htm
 ## Create a SNS topic on AWS
 1. `aws sns create-topic --name lambda-rss-feed`
 
-2. The code to publish the message is copied from https://gist.github.com/jeremypruitt/ab70d78b815eae84e037
+2. The code to publish the message is learnt from https://gist.github.com/jeremypruitt/ab70d78b815eae84e037
 
 ## Tests
 
@@ -39,6 +39,7 @@ https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLambdaSchedule.htm
 #### Source 
 1. https://www.freecodecamp.org/news/the-best-ways-to-test-your-serverless-applications-40b88d6ee31e/
 2. https://blog.codecentric.de/en/2019/02/testable-lambda/
+3. https://github.com/dwyl/aws-sdk-mock
 
 ### Manual test locally against an endpoint
 
