@@ -18,6 +18,7 @@ jobs:
           npm ci
           npm prune --production
           npm run build --if-present
+          ls
         env:
           CI: true
       - name: zip
