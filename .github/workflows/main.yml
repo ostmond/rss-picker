@@ -3,6 +3,9 @@ on: [push]
 jobs:
   unit_test:
     name: unit test
+    strategy:
+      matrix:
+        node-version: [12.x]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -14,9 +17,7 @@ jobs:
         run: |
           npm ci
       - name: run coverage 
-        run: |
-          pwd
-          ls -l
+        run:
           npm run coverage
   deploy_source:
     name: build and deploy lambda
@@ -28,6 +29,8 @@ jobs:
     steps:
       - name: npm build
         run: |
+          pwd
+          ls -l
           npm prune --production
           npm run build --if-present
           rm -r test env.json docker-npm.js
