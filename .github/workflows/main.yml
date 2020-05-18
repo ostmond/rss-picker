@@ -6,7 +6,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: run coverage 
-        run:
+        run: |
+          pwd
+          ls -l
           npm run coverage
   deploy_source:
     name: build and deploy lambda
