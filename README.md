@@ -24,10 +24,13 @@ aws lambda add-permission \
 ### Source:
 https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLambdaSchedule.html
 
-## Create a SNS topic on AWS
+## Create a SNS topic on AWS as the pubishing target
 1. `aws sns create-topic --name lambda-rss-feed`
 
-2. The code to publish the message is learnt from https://gist.github.com/jeremypruitt/ab70d78b815eae84e037
+2. Go to AWS IAM to add an inline-policy to the role of rss-picker to enable publishing onto the lambda-rss-feed.
+
+### Source
+1. The code to publish the message is learnt from https://gist.github.com/jeremypruitt/ab70d78b815eae84e037
 
 ## Tests
 
@@ -40,6 +43,7 @@ https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLambdaSchedule.htm
 1. https://www.freecodecamp.org/news/the-best-ways-to-test-your-serverless-applications-40b88d6ee31e/
 2. https://blog.codecentric.de/en/2019/02/testable-lambda/
 3. https://github.com/dwyl/aws-sdk-mock
+4. https://medium.com/@maxcbc/mocking-environment-variables-in-node-js-a17a416e127c
 
 ### Manual test locally against an endpoint
 
