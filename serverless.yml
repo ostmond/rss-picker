@@ -1,0 +1,11 @@
+service: rss-picker
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: eu-central-1
+
+functioins:
+  rss-picker:
+    handler: index.handler
