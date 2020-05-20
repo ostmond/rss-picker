@@ -6,6 +6,11 @@ provider:
   stage: dev
   region: eu-central-1
 
+package:
+  exclude:
+  - test/**
+  - env.json
+
 functioins:
   rss-picker:
     handler: index.handler

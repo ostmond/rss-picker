@@ -44,23 +44,5 @@ jobs:
         run: npm ci
       - name: Serverless deploy
         run: 
-          ./node_modules/serverless/bin/serverless deploy function -f rss-picker-${{ env.GITHUB_REF_SLUG }}
-      - name: npm install, build and remove unnecessary test code
-        run: |
-          npm prune --production
-          npm run build --if-present
-          rm -r test env.json docker-npm.js
-        env:
-          CI: true
-      - name: zip
-        uses: montudor/action-zip@v0.1.0
-        with:
-          args: zip -qq -r ./bundle.zip ./  
-      - name: default deploy
-        uses: appleboy/lambda-action@master
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: eu-central-1
-          function_name: rss-picker-${{ env.GITHUB_REF_SLUG }}
-          zip_file: bundle.zip
+          ./node_modules/serverless/bin/serverless deploy
+      
