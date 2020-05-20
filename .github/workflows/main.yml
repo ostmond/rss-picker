@@ -41,7 +41,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
       - name: Serverless deploy
-        run: ./node_modules/serverless/bin/serverless deploy function -f rss-picker-${{ env.GITHUB_REF_SLUG }}
+        run: 
+          ./node_modules/serverless/bin/serverless deploy function -f rss-picker-${{ env.GITHUB_REF_SLUG }}
       - name: npm install, build and remove unnecessary test code
         run: |
           npm ci
