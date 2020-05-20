@@ -38,7 +38,6 @@ jobs:
           npm prune --production
           npm run build --if-present
           rm -r test env.json docker-npm.js
-          echo brach name: ${GITHUB_REF##*/}
         env:
           CI: true
       - name: zip
@@ -51,5 +50,5 @@ jobs:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: eu-central-1
-          function_name: rss-picker
+          function_name: rss-picker-${GITHUB_REF##*/}
           zip_file: bundle.zip
