@@ -44,11 +44,13 @@ jobs:
         uses: montudor/action-zip@v0.1.0
         with:
           args: zip -qq -r ./bundle.zip ./
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v2.x    
       - name: default deploy
         uses: appleboy/lambda-action@master
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: eu-central-1
-          function_name: rss-picker-${{ GITHUB_REF##*/ }}
+          function_name: rss-picker-${{ env.GITHUB_REF_SLUG }}
           zip_file: bundle.zip
