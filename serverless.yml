@@ -11,6 +11,6 @@ package:
   - test/**
   - env.json
 
-functioins:
-  rss-picker:
+functions:
+  rss-picker-serverless:
     handler: index.handler
