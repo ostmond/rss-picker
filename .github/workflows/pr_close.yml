@@ -24,7 +24,7 @@ jobs:
         run: npm ci
       - name: Append branch name to the function name
         run: |
-          sed -i "s/\brss-picker-serverless\b/${BASE_BRANCH}/g" serverless.yml
+          sed -i "s/\brss-picker\b/${BASE_BRANCH}/g" serverless.yml
           cat serverless.yml
         env:
           BASE_BRANCH: ${{ github.head_ref }}
