@@ -25,7 +25,10 @@ jobs:
         run: npm ci
       - name: Run unit tests with coverage 
         run:
-          npm run coverage  
+          npm run coverage
+      - name: Remove irrelevant files
+        run:
+          rm docker-npm.js
       - name: Append branch name to the function name
         run: |
           sed -i "s/\brss-picker-serverless\b/${{ env.GITHUB_REF_SLUG }}/g" serverless.yml
