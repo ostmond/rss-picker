@@ -25,6 +25,9 @@ jobs:
       - name: Append branch name to the function name
         run: |
           sed -i "s/\brss-picker-serverless\b/${BASE_BRANCH}/g" serverless.yml
-          echo serverless.yml
+          cat serverless.yml
         env:
-          BASE_BRANCH: ${{ github.base_ref }}  
+          BASE_BRANCH: ${{ github.base_ref }}
+      - name: Serverless remove function
+        run: 
+          ./node_modules/serverless/bin/serverless remove       
