@@ -44,5 +44,5 @@ jobs:
         run: npm ci
       - name: Serverless deploy
         run: 
-          ./node_modules/serverless/bin/serverless deploy -f ${{ env.GITHUB_REF_SLUG }} 
+          ./node_modules/serverless/bin/serverless deploy --stage ${{ env.GITHUB_REF_SLUG }} 
       
