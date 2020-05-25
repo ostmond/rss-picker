@@ -21,12 +21,12 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
-      - name: npm install
+      - name: Npm install
         run: npm ci
-      - name: run coverage 
+      - name: Run unit tests with coverage 
         run:
           npm run coverage  
-      - name: append branch name to the function name
+      - name: Append branch name to the function name
         run: |
           sed -i "s/\brss-picker-serverless\b/${{ env.GITHUB_REF_SLUG }}/g" serverless.yml
       - name: Serverless deploy
