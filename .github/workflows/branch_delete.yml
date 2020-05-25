@@ -2,7 +2,8 @@ name: remove from lambda when branch deleted
 on: [delete]
 jobs:
   remove_lambda:
-    name: remove lambda after a pull request is closed
+    name: remove lambda after a branch is deleted
+    if: ${{ github.event.ref_type == 'branch' }} # response only on deleting branch, not on deleting tag
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -22,8 +23,8 @@ jobs:
         run: npm ci
       - name: Append branch name to the function name
         run: |
-          sed -i "s/\brss-picker\b/rss-picker-${{ env.GITHUB_REF_SLUG }}/g" serverless.yml
+          sed -i "s/\brss-picker\b/rss-picker-${{ github.event.ref }}/g" serverless.yml
           cat serverless.yml
-      - name: Serverless remove function
+      - name: Serverless remove function (not work yet)
         run: 
           ./node_modules/serverless/bin/serverless remove       
