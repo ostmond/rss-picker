@@ -1,0 +1,30 @@
+name: remove from lambda
+on: 
+  pull_request:
+    types: [closed]
+jobs:
+  remove_lambda:
+    name: remove lambda after a pull request is closed
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v2.x
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      - name: Npm install
+        run: npm ci
+      - name: Append branch name to the function name
+        run: |
+          sed -i "s/\brss-picker-serverless\b/${BASE_BRANCH}/g" serverless.yml
+          echo serverless.yml
+        env:
+          BASE_BRANCH: ${{ github.base_ref }}  
