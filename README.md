@@ -75,8 +75,11 @@ This project uses the GitHub Actions to deploy the lambda function onto AWS.
 
 1. It is important to move the aws-sdk into section "devDependencies" of the package.json. 
 
-2. And I run `npm prune --production` to get rid of the modules brought by the devDependencies before zipping , in order to keep the function package as small as possible.
+2. When I used Action plugin appleboy, I had to run `npm prune --production` to get rid of the modules brought by the devDependencies before zipping , in order to keep the function package as small as possible.
 
-3. I don't want to deploy the test directory onto AWS, either, so I remove it before zipping.
+3. When I used serverless framework, it took care of excluding test dependencies by himself. But the test directory and files had to be removed manually.
 
-### 
+#### Source:
+1. Deployment with appleboy: https://blog.jakoblind.no/aws-lambda-github-actions/ and https://github.com/appleboy/lambda-action
+2. Deployment with serverless: https://levelup.gitconnected.com/deploying-your-first-serverless-node-js-api-to-aws-lambda-eb34044b1fb5 and https://github.com/serverless/github-action
+
