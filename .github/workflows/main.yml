@@ -31,7 +31,7 @@ jobs:
           rm docker-npm.js
       - name: Append branch name to the function name
         run: |
-          sed -i "s/\brss-picker\b/$rss-picker-{{ env.GITHUB_REF_SLUG }}/g" serverless.yml
+          sed -i "s/\brss-picker\b/rss-picker-${{ env.GITHUB_REF_SLUG }}/g" serverless.yml
       - name: Serverless deploy
         run: 
           ./node_modules/serverless/bin/serverless deploy 
