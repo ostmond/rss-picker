@@ -1,24 +1,6 @@
 name: deploy to lambda
 on: [push]
 jobs:
-  unit_test:
-    name: unit test
-    strategy:
-      matrix:
-        node-version: [12.x]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: npm install
-        run: |
-          npm ci
-      - name: run coverage 
-        run:
-          npm run coverage
   deploy_source:
     name: build and deploy lambda
     strategy:
@@ -42,10 +24,12 @@ jobs:
           aws-region: eu-central-1
       - name: npm install
         run: npm ci
+      - name: run coverage 
+        run:
+          npm run coverage  
       - name: append branch name to the function name
         run: |
           sed -i "s/\brss-picker-serverless\b/${{ env.GITHUB_REF_SLUG }}/g" serverless.yml
-          cat serverless.yml
       - name: Serverless deploy
         run: 
           ./node_modules/serverless/bin/serverless deploy 
