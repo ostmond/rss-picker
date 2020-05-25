@@ -12,5 +12,5 @@ package:
   - env.json
 
 functions:
-  rss-picker:
+  function:
     handler: index.handler
