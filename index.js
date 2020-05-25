@@ -11,12 +11,9 @@ exports.handler = (event, context, callback) => {
     httpReq.req(event.url).then(res => {
         console.log('success:', res);
         snsPub.publish(JSON.stringify(res));
-        // callback(null, res);
+        callback(null, res);
     }).catch(error => {
         console.log('error:', error);
-        // callback(error);
+        callback(error);
     })
-    // req.on('error', callback);
-    // req.get(JSON.stringify(event.data)); // TODO: to remove if it is not used.
-    // req.end();
 };
