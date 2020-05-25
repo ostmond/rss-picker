@@ -4,11 +4,7 @@ const httpReq = require('./http-req');
 const snsPub = require('./sns-pub');
 
 /**
- * Pass the data to send as `event.data`, and the request options as
- * `event.options`. For more information see the HTTPS module documentation
- * at https://nodejs.org/api/https.html.
- *
- * Will succeed with the response body.
+ * Pass the url to send as `event.url`
  */
 exports.handler = (event, context, callback) => {
     console.log('event.url:', event.url);
