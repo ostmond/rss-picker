@@ -71,7 +71,7 @@ https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/s
 
 ## Deployment
 
-This project uses the GitHub Actions to deploy the lambda function onto AWS. 
+This project uses the GitHub Actions to deploy the lambda function onto AWS. The different branches will get deployed on AWS with their own function names.
 
 1. It is important to move the aws-sdk into section "devDependencies" of the package.json. 
 
