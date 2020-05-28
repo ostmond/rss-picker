@@ -25,6 +25,6 @@ jobs:
         run: |
           sed -i "s/\brss-picker\b/rss-picker-${{ github.event.ref }}/g" serverless.yml
           cat serverless.yml
-      - name: Serverless remove function (not work yet)
+      - name: Serverless remove function
         run: 
           ./node_modules/serverless/bin/serverless remove       
