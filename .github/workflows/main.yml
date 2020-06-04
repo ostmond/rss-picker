@@ -8,12 +8,13 @@ jobs:
         node-version: [12.x]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use an action provided from github market place to checkout the source code
+        uses: actions/checkout@v1
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Inject slug/short variables
+      - name: Inject slug/short variables to get the branch name, i.e. feature1, master etc.
         uses: rlespinasse/github-slug-action@v2.x  
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
