@@ -1,0 +1,39 @@
+name: deploy to lambda
+on: [push]
+jobs:
+  deploy_source:
+    name: build and deploy lambda
+    strategy:
+      matrix:
+        node-version: [12.x]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use an action provided from github market place to checkout the source code
+        uses: actions/checkout@v1
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Inject slug/short variables to get the branch name, i.e. feature1, master etc.
+        uses: rlespinasse/github-slug-action@v2.x  
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      - name: Npm install
+        run: npm ci
+      - name: Run unit tests with coverage 
+        run:
+          npm run coverage
+      - name: Remove irrelevant files
+        run:
+          rm docker-npm.js
+      - name: Append branch name to the function name
+        run:
+          sed -i "s/\brss-picker\b/rss-picker-${{ env.GITHUB_REF_SLUG }}/g" serverless.yml    
+      - name: Serverless deploy
+        run: 
+          ./node_modules/serverless/bin/serverless deploy 
+      

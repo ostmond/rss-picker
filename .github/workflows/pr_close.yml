@@ -1,0 +1,31 @@
+name: remove from lambda when pull request closed
+on: 
+  pull_request:
+    types: [closed]
+jobs:
+  remove_lambda:
+    name: remove lambda after a pull request is closed
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+      - name: Npm install
+        run: npm ci
+      - name: Append branch name to the function name
+        run: |
+          sed -i "s/\brss-picker\b/rss-picker-${HEAD_BRANCH}/g" serverless.yml
+          cat serverless.yml
+        env:
+          HEAD_BRANCH: ${{ github.head_ref }}
+      - name: Serverless remove function
+        run: 
+          ./node_modules/serverless/bin/serverless remove       
