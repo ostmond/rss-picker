@@ -19,12 +19,12 @@ describe('sns-pub', () => {
     // mock env
     process.env.TOPIC_ARN = 'arn:aws:sns:eu-central-1:410315750128:lambda-rss-feed';
     // Fake sns client behavior
-    const updateTableSpy = sinon.spy();
-    AWS.mock('SNS', 'publish', updateTableSpy);
+    const publishSpy = sinon.spy();
+    AWS.mock('SNS', 'publish', publishSpy);
     // execute method to be tested
     const snsPub = proxyquire('../sns-pub', {});
     snsPub.publish('jsonString');
     // assertion
-    sinon.assert.calledWith(updateTableSpy, { Message: 'jsonString',  TopicArn: process.env.TOPIC_ARN}, sinon.match.any);
+    sinon.assert.calledWith(publishSpy, { Message: 'jsonString',  TopicArn: process.env.TOPIC_ARN}, sinon.match.any);
   });
 })
