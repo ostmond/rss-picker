@@ -22,7 +22,7 @@ describe('sns-pub', () => {
     const publishSpy = sinon.spy();
     AWS.mock('SNS', 'publish', publishSpy);
     // execute method to be tested
-    const snsPub = proxyquire('../sns-pub', {});
+    const snsPub = proxyquire('../services/sns-pub', {});
     snsPub.publish('jsonString');
     // assertion
     sinon.assert.calledWith(publishSpy, { Message: 'jsonString',  TopicArn: process.env.TOPIC_ARN}, sinon.match.any);
