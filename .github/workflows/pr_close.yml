@@ -1,4 +1,4 @@
-name: remove from lambda when pull request closed
+name: remove from lambda and dynamodb when pull request closed
 on: 
   pull_request:
     types: [closed]
@@ -20,12 +20,13 @@ jobs:
           aws-region: eu-central-1
       - name: Npm install
         run: npm ci
-      - name: Append branch name to the function name
+      - name: Append branch name to the function and dynamodb name
         run: |
           sed -i "s/\brss-picker\b/rss-picker-${HEAD_BRANCH}/g" serverless.yml
+          sed -i "s/\bTableName: RssFeedsEU\b/TableName: RssFeedsEU-${{ env.GITHUB_REF_SLUG }}/g" serverless.yml
           cat serverless.yml
         env:
           HEAD_BRANCH: ${{ github.head_ref }}
-      - name: Serverless remove function
+      - name: Serverless remove function and dynamodb
         run: 
           ./node_modules/serverless/bin/serverless remove       
