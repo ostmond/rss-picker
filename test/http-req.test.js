@@ -4,7 +4,7 @@ const chai = require('chai');
 const assert = require('chai').assert;
 const chaiAsPromised = require("chai-as-promised");
 const expect = require('chai').expect;
-const httpsReq = require('../http-req');
+const httpsReq = require('../services/http-req');
 
 chai.use(chaiAsPromised);
 
@@ -36,7 +36,7 @@ describe('http-req', () => {
       .get('/en/taxonomy/term/1295/feed')
       .reply(200, responseBody, {'content-type': 'application/json'});
     // call the method to test 
-    res = await httpsReq.req('https://www.ecdc.europa.eu/en/taxonomy/term/1295/feed');
+    const res = await httpsReq.req('https://www.ecdc.europa.eu/en/taxonomy/term/1295/feed');
     // assertions
     assert.equal(res.status, 'success')
     assert.equal(res.data[0].id, 4)
@@ -53,7 +53,7 @@ describe('http-req', () => {
       .get('/en/taxonomy/term/1295/feed')
       .reply(200, responseBody, {'content-type': 'application/rss+xml'});
     // call the method to test 
-    res = await httpsReq.req('https://www.ecdc.europa.eu/en/taxonomy/term/1295/feed');
+    const res = await httpsReq.req('https://www.ecdc.europa.eu/en/taxonomy/term/1295/feed');
     // assertions
     assert.equal(res.title, 'ECDC - RSS - Risk assessment')
   });

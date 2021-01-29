@@ -32,6 +32,10 @@ https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/RunLambdaSchedule.htm
 ### Source
 1. The code to publish the message is learnt from https://gist.github.com/jeremypruitt/ab70d78b815eae84e037
 
+
+## Create DynamoDB table
+1. `aws dynamodb create-table --cli-input-json <absolute path to json file>`, or just
+`serverless deploy`
 ## Tests
 
 ### Automatic unit tests
