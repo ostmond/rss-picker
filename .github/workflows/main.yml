@@ -35,7 +35,7 @@ jobs:
           sed -i "s/\brss-picker\b/rss-picker-${{ env.GITHUB_REF_SLUG }}/g" serverless.yml    
           sed -i "s/\bRssFeedsEU\b/RssFeedsEU-${{ env.GITHUB_REF_SLUG }}/g" serverless.yml    
           cat serverless.yml
-          sed -i "s/\bRssFeedsEU\b/RssFeedsEU-${{ env.GITHUB_REF_SLUG }}/g" services/dynamo.js
+          sed -i "s/\bTableName: RssFeedsEU\b/TableName: RssFeedsEU-${{ env.GITHUB_REF_SLUG }}/g" services/dynamo.js
           cat services/dynamo.js
       - name: Serverless deploy
         run: 
